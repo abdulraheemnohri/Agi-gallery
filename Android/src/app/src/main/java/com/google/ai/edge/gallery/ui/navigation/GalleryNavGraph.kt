@@ -98,6 +98,7 @@ private const val ROUTE_MODEL_LIST = "model_list"
 private const val ROUTE_MODEL = "route_model"
 private const val ROUTE_BENCHMARK = "benchmark"
 private const val ROUTE_MODEL_MANAGER = "model_manager"
+private const val ROUTE_DASHBOARD = "dashboard"
 private const val ROUTE_NOTIFICATIONS = "notifications"
 private const val ENTER_ANIMATION_DURATION_MS = 500
 private val ENTER_ANIMATION_EASING = EaseOutExpo
@@ -191,6 +192,13 @@ fun GalleryNavHost(
     exitTransition = { ExitTransition.None },
   ) {
     // Home screen.
+    composable(route = ROUTE_DASHBOARD) {
+      com.google.ai.edge.gallery.ui.dashboard.DashboardScreen(
+        modelManagerViewModel = modelManagerViewModel,
+        onNavigateUp = { navController.navigateUp() }
+      )
+    }
+
     composable(route = ROUTE_HOMESCREEN) {
       // Create a state to trigger PromoScreen fade in animation.
       val promoId = "gm4"
@@ -202,7 +210,11 @@ fun GalleryNavHost(
             modelManagerViewModel = modelManagerViewModel,
             tosViewModel = hiltViewModel(),
             enableAnimation = enableHomeScreenAnimation,
-            navigateToTaskScreen = { task ->
+            navigateToTaskScreen = { task, toDashboard ->
+              if (toDashboard) {
+                navController.navigate(ROUTE_DASHBOARD)
+                return@HomeScreen
+              }
               pickedTask = task
               enableModelListAnimation = true
               navController.navigate(ROUTE_MODEL_LIST)
