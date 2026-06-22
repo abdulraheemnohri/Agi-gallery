@@ -138,7 +138,7 @@ private const val TAG = "AGMAScreen"
 
 data class PromptTemplate(@StringRes val labelResId: Int, val prompt: String)
 
-private val PROMPT_TEMPLATES =
+val PROMPT_TEMPLATES =
   listOf(
     PromptTemplate(
       labelResId = R.string.prompt_template_label_flash_on,
@@ -172,9 +172,9 @@ private val PROMPT_TEMPLATES =
     ),
   )
 
-private data class SampleActionItem(@StringRes val labelResId: Int, val icon: ImageVector)
+data class SampleActionItem(@StringRes val labelResId: Int, val icon: ImageVector)
 
-private val SAMPLE_ACTION_ITEMS =
+val SAMPLE_ACTION_ITEMS =
   listOf(
     SampleActionItem(
       labelResId = R.string.prompt_template_label_flash_on_off,
@@ -202,9 +202,9 @@ private val SAMPLE_ACTION_ITEMS =
     ),
   )
 
-private data class Tab(@StringRes val labelResId: Int, val icon: ImageVector)
+data class Tab(@StringRes val labelResId: Int, val icon: ImageVector)
 
-private val TABS =
+val TABS =
   listOf(
     Tab(
       labelResId = R.string.mobile_actions_tab_model_response,
@@ -741,7 +741,7 @@ fun MainUi(
   }
 }
 
-private fun genFormattedFunctionCall(action: Action, resources: Resources): String {
+fun genFormattedFunctionCall(action: Action, resources: Resources): String {
   val strFunctionName = action.functionCallDetails.functionName
   val functionNameLabel = resources.getString(R.string.function_name)
   var content = "**$functionNameLabel**:\n- $strFunctionName"
